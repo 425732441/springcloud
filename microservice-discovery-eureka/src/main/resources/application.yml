@@ -1,0 +1,29 @@
+# 应用名称
+spring:
+  security:
+    user:
+      name: user                # 配置登录的账号是user
+      password: password123     # 配置登录的密码是password123
+---
+spring:
+  profiles: peer1                                 # 指定profile=peer1
+server:
+  port: 8761
+eureka:
+  instance:
+    hostname: peer1                               # 指定当profile=peer1时，主机名
+  client:
+    serviceUrl:
+      defaultZone: http://user:password123@peer1:8761/eureka/,http://user:password123@peer2:8762/eureka      # 将自己注册到peer2这个Eureka上面去
+
+---
+spring:
+  profiles: peer2
+server:
+  port: 8762
+eureka:
+  instance:
+    hostname: peer2
+  client:
+    serviceUrl:
+      defaultZone: http://user:password123@peer1:8761/eureka/,http://user:password123@peer2:8762/eureka

@@ -1,0 +1,7 @@
+# 应用名称
+spring:
+  application:
+    name: spring-boot-admin-server
+server:
+  port: 9999
+

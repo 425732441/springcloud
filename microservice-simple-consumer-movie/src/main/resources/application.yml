@@ -1,0 +1,14 @@
+# 应用名称
+spring:
+  application:
+    name: microservice-simple-consumer-movie
+server:
+  port: 8010
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://user:password123@peer1:8761/eureka/,http://user:password123@peer2:8762/eureka    # 指定注册中心的地址
+  instance:
+    preferIpAddress: false
+    metadata-map:
+      my-movie: 最喜欢的电影
