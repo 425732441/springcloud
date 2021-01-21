@@ -24,6 +24,8 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://user:password123@peer1:8761/eureka/,http://user:password123@peer2:8762/eureka    # 指定注册中心的地址
+    healthcheck:
+      enabled: true
   instance:
     preferIpAddress: true
     metadata-map:
