@@ -27,4 +27,4 @@ eureka:
   instance:
     preferIpAddress: true
     metadata-map:
-      my-data: 自定义元数据
+      my-data: 自定义元数据~~
