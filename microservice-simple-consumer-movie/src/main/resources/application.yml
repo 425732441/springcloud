@@ -12,3 +12,7 @@ eureka:
     preferIpAddress: false
     metadata-map:
       my-movie: 最喜欢的电影
+
+microservice-provider-user:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule  #使用配置属性的形式自定义负载规则
