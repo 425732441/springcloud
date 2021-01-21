@@ -1,6 +1,7 @@
 package com.zhl.microservicesimpleconsumermovie.user.controller;
 
 import com.zhl.microservicesimpleconsumermovie.user.entity.User;
+import com.zhl.microservicesimpleconsumermovie.user.feign.UserFeignClient;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
@@ -27,6 +28,8 @@ public class MovieController {
     private DiscoveryClient discoveryClient;
     @Autowired
     private LoadBalancerClient loadBalancerClient;
+    @Autowired
+    private UserFeignClient userFeignClient;
 
     @GetMapping("/users/{id}")
     public User findById(@PathVariable Long id) {
@@ -34,6 +37,10 @@ public class MovieController {
         User user = this.restTemplate.getForObject("http://microservice-provider-user/{id}", User.class, id);
         // ...电影微服务的业务...
         return user;
+    }
+    @GetMapping("/user/feign/{id}")
+    public User findByIdUseFeign(@PathVariable Long id) {
+        return userFeignClient.findById(id);
     }
 
     /**
