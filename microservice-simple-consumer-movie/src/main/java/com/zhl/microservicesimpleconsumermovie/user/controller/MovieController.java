@@ -38,9 +38,11 @@ public class MovieController {
         // ...电影微服务的业务...
         return user;
     }
-    @GetMapping("/user/feign/{id}")
-    public User findByIdUseFeign(@PathVariable Long id) {
-        return userFeignClient.findById(id);
+
+
+    @GetMapping("/user/feignRequestLine/{id}")
+    public User feignRequestLine(@PathVariable Long id) {
+        return userFeignClient.findByIdUseFeignRequestLine(id);
     }
 
     /**

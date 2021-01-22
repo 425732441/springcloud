@@ -1,18 +1,20 @@
 package com.zhl.microservicesimpleconsumermovie.user.feign;
 
 import com.zhl.microservicesimpleconsumermovie.user.entity.User;
+import config.FeignConfiguration;
+import feign.Param;
+import feign.RequestLine;
 import org.springframework.cloud.netflix.feign.FeignClient;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
+ * 使用自定义配置实现
+ *
  * @author Zhanghualei
- * @Classname UserFeignClient
- * @Date 2021/1/21 17:57
+ * @Classname UserFeignClient1
+ * @Date 2021/1/22 15:42
  */
-@FeignClient(name = "microservice-provider-user")
+@FeignClient(name = "microservice-provider-user", configuration = FeignConfiguration.class)
 public interface UserFeignClient {
-    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-    User findById(@PathVariable("id") Long id);
+    @RequestLine("GET /{id}")
+    User findByIdUseFeignRequestLine(@Param("id") Long id);
 }
