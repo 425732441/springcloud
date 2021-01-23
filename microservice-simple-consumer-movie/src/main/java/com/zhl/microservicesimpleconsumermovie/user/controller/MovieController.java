@@ -1,5 +1,8 @@
 package com.zhl.microservicesimpleconsumermovie.user.controller;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+import com.netflix.ribbon.proxy.annotation.Hystrix;
 import com.zhl.microservicesimpleconsumermovie.user.entity.User;
 import com.zhl.microservicesimpleconsumermovie.user.feign.UserFeignClient;
 import com.zhl.microservicesimpleconsumermovie.user.feign.UserFeignClientForCustom;
@@ -23,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -80,11 +84,27 @@ public class MovieController {
         return userFeignLogClient.findByIdUseLog(id);
     }
 
+    @HystrixCommand(fallbackMethod = "get1Fallback",commandProperties =  {
+            @HystrixProperty(name = "circuitBreaker.enabled", value = "true"),//是否开启断路器
+            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "10"),// 请求次数
+            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000"), //时间窗口期
+            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "60") //失败率达到多少后跳闸
+    })
     @GetMapping("/user/get1")
     public List<User> get1(Long id, String username) {
         return userFeignLogClient.get1(id, username);
     }
 
+    public List<User> get1Fallback(Long id, String username) {
+        User user = new User();
+        user.setId(1000L);
+        user.setUsername("默认用户");
+        user.setAge(100);
+
+        List<User> users = new ArrayList<>();
+        users.add(user);
+        return users;
+    }
     /**
      * 查看某个服务的实例信息
      *

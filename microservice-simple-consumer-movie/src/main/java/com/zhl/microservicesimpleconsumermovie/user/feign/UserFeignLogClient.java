@@ -20,7 +20,7 @@ import java.util.List;
  * @Classname UserFeignClient1
  * @Date 2021/1/22 15:42
  */
-@FeignClient(name = "microservice-provider-user", configuration = FeignLogConfiguration.class)
+@FeignClient(name = "microservice-provider-user", configuration = FeignLogConfiguration.class,fallback = ForbackUserFeignLogClient.class)
 public interface UserFeignLogClient {
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     User findByIdUseLog(@PathVariable("id") Long id);
