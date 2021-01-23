@@ -10,11 +10,11 @@ import org.springframework.cloud.netflix.feign.FeignClient;
  * 使用自定义配置实现
  *
  * @author Zhanghualei
- * @Classname UserFeignClient1
+ * @Classname UserFeignClient
  * @Date 2021/1/22 15:42
  */
 @FeignClient(name = "microservice-provider-user", configuration = FeignConfiguration.class)
 public interface UserFeignClient {
-    @RequestLine("GET /{id}")
-    User findByIdUseFeignRequestLine(@Param("id") Long id);
+    // @RequestLine("GET /{id}")
+    // User findByIdUseFeignRequestLine(@Param("id") Long id);
 }

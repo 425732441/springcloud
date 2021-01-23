@@ -16,3 +16,6 @@ eureka:
 microservice-provider-user:
   ribbon:
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule  #使用配置属性的形式自定义负载规则
+logging:
+  level:
+    com.zhl.microservicesimpleconsumermovie.user.feign.UserFeignLogClient: debug

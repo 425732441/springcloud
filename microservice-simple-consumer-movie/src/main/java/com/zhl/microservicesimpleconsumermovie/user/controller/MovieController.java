@@ -3,6 +3,7 @@ package com.zhl.microservicesimpleconsumermovie.user.controller;
 import com.zhl.microservicesimpleconsumermovie.user.entity.User;
 import com.zhl.microservicesimpleconsumermovie.user.feign.UserFeignClient;
 import com.zhl.microservicesimpleconsumermovie.user.feign.UserFeignClientForCustom;
+import com.zhl.microservicesimpleconsumermovie.user.feign.UserFeignLogClient;
 import feign.Client;
 import feign.Contract;
 import feign.Feign;
@@ -40,6 +41,8 @@ public class MovieController {
     private LoadBalancerClient loadBalancerClient;
     @Autowired
     private UserFeignClient userFeignClient;
+    @Autowired
+    private UserFeignLogClient userFeignLogClient;
     private UserFeignClientForCustom userUserFeignClient;
     private UserFeignClientForCustom userAdminFeignClient;
 
@@ -72,9 +75,14 @@ public class MovieController {
         return this.userAdminFeignClient.findByIdUseFeignRequestLine(id);
     }
 
-    @GetMapping("/user/feignRequestLine/{id}")
+    @GetMapping("/user/feignRequestLog/{id}")
     public User feignRequestLine(@PathVariable Long id) {
-        return userFeignClient.findByIdUseFeignRequestLine(id);
+        return userFeignLogClient.findByIdUseLog(id);
+    }
+
+    @GetMapping("/user/get1")
+    public List<User> get1(Long id, String username) {
+        return userFeignLogClient.get1(id, username);
     }
 
     /**

@@ -7,14 +7,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
+import java.util.List;
 
 
 /**
@@ -53,6 +56,12 @@ public class UserController {
         }
         User findOne = this.userRepository.findOne(id);
         return findOne;
+    }
+
+    @GetMapping("/get1")
+    public List<User> get1(@RequestParam("id") Long id, @RequestParam("username") String username){
+        return userRepository.findAll((Specification<User>)(root, criteriaQuery, criteriaBuilder)
+                -> criteriaBuilder.and(criteriaBuilder.equal(root.get("username"),username),criteriaBuilder.equal(root.get("id"),id)));
     }
 
     /**
