@@ -1,0 +1,7 @@
+# 应用名称
+spring:
+  application:
+    name: ms-hystrix-dashboard
+server:
+  port: 8030
+
