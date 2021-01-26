@@ -1,0 +1,14 @@
+# 应用名称
+spring:
+  application:
+    name: ms-gateway-zuul
+server:
+  port: 8040
+eureka:
+  client:
+    service-url:
+      defaultZone: http://user:password123@peer1:8761/eureka/,http://user:password123@peer2:8762/eureka
+zuul:
+  routes:
+    microservice-provider-user: /user/**  #自定义路径
+#  ignored-services: microservice-provider-user,microservice-simple-consumer-movie  # 忽略某个服务
