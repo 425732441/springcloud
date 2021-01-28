@@ -1,0 +1,18 @@
+# 应用名称
+spring:
+  application:
+    name: ms-file-upload
+  http:
+    multipart:
+      max-file-size: 2500MB
+      max-request-size: 2500MB
+server:
+  port: 8050
+eureka:
+  client:
+    service-url:
+      defaultZone: http://user:password123@peer1:8761/eureka/,http://user:password123@peer2:8762/eureka
+  instance:
+    prefer-ip-address: true
+
+

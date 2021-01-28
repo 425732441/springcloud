@@ -9,6 +9,12 @@ eureka:
     service-url:
       defaultZone: http://user:password123@peer1:8761/eureka/,http://user:password123@peer2:8762/eureka
 zuul:
-  routes:
-    microservice-provider-user: /user/**  #自定义路径
+#  routes:
+#    microservice-provider-user: /user/**  #自定义路径
 #  ignored-services: microservice-provider-user,microservice-simple-consumer-movie  # 忽略某个服务
+
+# 上传大文件得将超时时间设置长一些，否则会报超时异常。以下几行超时设置来自http://cloud.spring.io/spring-cloud-static/Camden.SR3/#_uploading_files_through_zuul
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 600000
+ribbon:
+  ConnectTimeout: 300000
+  ReadTimeout: 600000
