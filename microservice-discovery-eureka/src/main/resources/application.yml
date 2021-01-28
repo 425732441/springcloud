@@ -1,5 +1,7 @@
 # 应用名称
 spring:
+  application:
+    name: ms-eureka
   security:
     user:
       name: user                # 配置登录的账号是user
